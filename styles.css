@@ -172,11 +172,13 @@ th:last-child {
 
 /* Highlight the entire week */
 .highlight-week {
-    background-color: rgba(245, 231, 240, 0.8); /* Light pink */
-    border-radius: 5px;
+    background-color: #37431f;
+    border-radius: 10px; /* Add border-radius for rounded corners */
+    color: #75942f;
 }
 
-/* Change text color for the entire current week */
-.highlight-text {
-    color: #D4A2B2; /* Text color for the current week */
+/* Apply border-radius to each cell within the highlighted week */
+.highlight-week td {
+    color: #75942f;
+    border-radius: 10px; /* Ensure individual cells also have rounded corners */
 }
