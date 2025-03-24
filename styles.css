@@ -175,3 +175,8 @@ th:last-child {
     background-color: rgba(245, 231, 240, 0.8); /* Light pink */
     border-radius: 5px;
 }
+
+/* Change the text color of the current week */
+.current-week-day {
+    color: #D15B8A; /* Example color (light pink), you can choose any color */
+}
