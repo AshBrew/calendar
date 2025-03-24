@@ -27,7 +27,6 @@ const calendarTable = document.getElementById("calendar");
 
 function generateCalendar() {
     const firstDay = new Date(currentYear, currentMonth, 1).getDay();
-    const adjustedFirstDay = firstDay === 0 ? 6 : firstDay - 1; // Sunday becomes Saturday, and other days shift by 1
     const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
 
     document.getElementById("month").textContent = monthNames[currentMonth];
@@ -45,13 +44,13 @@ function generateCalendar() {
 
     // Get the start and end of the current week
     const firstDayOfWeek = new Date(today);
-    firstDayOfWeek.setDate(today.getDate() - today.getDay() + (today.getDay() === 0 ? -6 : 1)); // Start of the week is Monday
+    firstDayOfWeek.setDate(today.getDate() - today.getDay()); // Sunday
 
     const lastDayOfWeek = new Date(today);
-    lastDayOfWeek.setDate(today.getDate() + (6 - today.getDay())); // Saturday of the same week
+    lastDayOfWeek.setDate(today.getDate() + (6 - today.getDay())); // Saturday
 
     for (let i = 0; i < 7; i++) {
-        if (i < adjustedFirstDay) {
+        if (i < firstDay) {
             row.insertCell();
             continue;
         }
@@ -60,11 +59,6 @@ function generateCalendar() {
         cell.textContent = date;
 
         let cellDate = new Date(currentYear, currentMonth, date);
-
-        // Highlight the entire week if the date falls within the current week
-        if (cellDate >= firstDayOfWeek && cellDate <= lastDayOfWeek && currentMonth === todayMonth && currentYear === todayYear) {
-            row.classList.add("highlight-week"); // Apply highlight to the entire row
-        }
 
         date++;
 
@@ -84,13 +78,27 @@ function generateCalendar() {
 
             let cellDate = new Date(currentYear, currentMonth, date);
 
-            // Highlight the entire week
-            if (cellDate >= firstDayOfWeek && cellDate <= lastDayOfWeek && currentMonth === todayMonth && currentYear === todayYear) {
-                row.classList.add("highlight-week"); // Apply highlight to the entire row
-            }
-
             date++;
         }
+
+        // Check if the current row (week) falls within the current week
+        const rowCells = row.querySelectorAll("td");
+        let highlightRow = false;
+
+        // Check each day in the row to see if it's within the current week
+        for (let i = 0; i < rowCells.length; i++) {
+            let cellDate = new Date(currentYear, currentMonth, rowCells[i].textContent);
+            if (cellDate >= firstDayOfWeek && cellDate <= lastDayOfWeek && currentMonth === todayMonth && currentYear === todayYear) {
+                highlightRow = true;
+                break;
+            }
+        }
+
+        // If the row contains a day within the current week, highlight the entire row
+        if (highlightRow) {
+            row.classList.add("highlight-week");
+        }
+
         row = calendarTable.querySelector("tbody").insertRow();
     }
 }
