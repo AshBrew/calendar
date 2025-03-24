@@ -94,9 +94,13 @@ function generateCalendar() {
             }
         }
 
-        // If the row contains a day within the current week, highlight the entire row
+        // If the row contains a day within the current week, apply rounded corners to Sunday and Saturday
         if (highlightRow) {
             row.classList.add("highlight-week");
+
+            // Apply rounded corners to the first (Sunday) and last (Saturday) cells
+            rowCells[0].classList.add("rounded-left");
+            rowCells[6].classList.add("rounded-right");
         }
 
         row = calendarTable.querySelector("tbody").insertRow();
