@@ -64,9 +64,6 @@ function generateCalendar() {
         // Highlight the entire week if the date falls within the current week
         if (cellDate >= firstDayOfWeek && cellDate <= lastDayOfWeek && currentMonth === todayMonth && currentYear === todayYear) {
             row.classList.add("highlight-week"); // Apply highlight to the entire row
-
-            // Add the current-week-day class to change text color
-            cell.classList.add("current-week-day");
         }
 
         date++;
@@ -90,9 +87,6 @@ function generateCalendar() {
             // Highlight the entire week
             if (cellDate >= firstDayOfWeek && cellDate <= lastDayOfWeek && currentMonth === todayMonth && currentYear === todayYear) {
                 row.classList.add("highlight-week"); // Apply highlight to the entire row
-
-                // Add the current-week-day class to change text color
-                cell.classList.add("current-week-day");
             }
 
             date++;
