@@ -3,14 +3,14 @@ body {
 }
 
 :root {
-    --weekday-color: #5C4F42;
-    --innerBorder-color: #5C4F42;
-    --containerBorder-color: #E3D1DD;
-    --sunday-color: #5C4F42;
-    --saturday-color: #5C4F42;
+    --weekday-color: #37431f;
+    --innerBorder-color: #37431f;
+    --containerBorder-color: #75942f;
+    --sunday-color: #37431f;
+    --saturday-color: #37431f;
     --current-day: #F5E7F0;
-    --container: #E3D1DD;
-    --inner-container: #E3D1DD;
+    --container: #75942f;
+    --inner-container: #75942f;
     --fontWgt: 600;
     --headerFont: "Gaegu", serif;
     --textFont: "Sour Gummy", serif;
@@ -172,6 +172,11 @@ th:last-child {
 
 /* Highlight the entire week */
 .highlight-week {
-    background-color: rgba(245, 231, 240, 0.8); /* Light pink */
+    background-color: #a8ab30
     border-radius: 5px;
+    color: #a8ab30;
+}
+
+highlight-week td {
+    color: #b2c35b;
 }
