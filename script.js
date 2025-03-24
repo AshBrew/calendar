@@ -44,10 +44,10 @@ function generateCalendar() {
 
     // Get the start and end of the current week
     const firstDayOfWeek = new Date(today);
-    firstDayOfWeek.setDate(today.getDate() (1 - today.getDay()); // Monday
+    firstDayOfWeek.setDate(today.getDate() - today.getDay()); // Sunday
 
     const lastDayOfWeek = new Date(today);
-    lastDayOfWeek.setDate(today.getDate() + (0 - today.getDay())); // Sunday
+    lastDayOfWeek.setDate(today.getDate() + (6 - today.getDay())); // Saturday
 
     for (let i = 0; i < 7; i++) {
         if (i < firstDay) {
@@ -81,7 +81,7 @@ function generateCalendar() {
             date++;
         }
 
-        // Check if the current row (week) contains any day in the current week
+        // Check if the current row (week) falls within the current week
         const rowCells = row.querySelectorAll("td");
         let highlightRow = false;
 
@@ -94,13 +94,9 @@ function generateCalendar() {
             }
         }
 
-        // If the row contains a day within the current week, apply rounded corners to Sunday and Saturday
+        // If the row contains a day within the current week, highlight the entire row
         if (highlightRow) {
             row.classList.add("highlight-week");
-
-            // Apply rounded corners to the first (Sunday) and last (Saturday) cells
-            rowCells[1].classList.add("rounded-left");
-            rowCells[0].classList.add("rounded-right");
         }
 
         row = calendarTable.querySelector("tbody").insertRow();
