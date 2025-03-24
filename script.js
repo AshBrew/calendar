@@ -27,6 +27,7 @@ const calendarTable = document.getElementById("calendar");
 
 function generateCalendar() {
     const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+    const adjustedFirstDay = firstDay === 0 ? 6 : firstDay - 1; // Sunday becomes Saturday, and other days shift by 1
     const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
 
     document.getElementById("month").textContent = monthNames[currentMonth];
@@ -44,13 +45,13 @@ function generateCalendar() {
 
     // Get the start and end of the current week
     const firstDayOfWeek = new Date(today);
-    firstDayOfWeek.setDate(today.getDate() - today.getDay()); // Sunday
+    firstDayOfWeek.setDate(today.getDate() - today.getDay() + (today.getDay() === 0 ? -6 : 1)); // Start of the week is Monday
 
     const lastDayOfWeek = new Date(today);
-    lastDayOfWeek.setDate(today.getDate() + (6 - today.getDay())); // Saturday
+    lastDayOfWeek.setDate(today.getDate() + (6 - today.getDay())); // Saturday of the same week
 
     for (let i = 0; i < 7; i++) {
-        if (i < firstDay) {
+        if (i < adjustedFirstDay) {
             row.insertCell();
             continue;
         }
@@ -62,7 +63,10 @@ function generateCalendar() {
 
         // Highlight the entire week if the date falls within the current week
         if (cellDate >= firstDayOfWeek && cellDate <= lastDayOfWeek && currentMonth === todayMonth && currentYear === todayYear) {
-            cell.classList.add("highlight-week");
+            row.classList.add("highlight-week"); // Apply highlight to the entire row
+
+            // Add the current-week-day class to change text color
+            cell.classList.add("current-week-day");
         }
 
         date++;
@@ -85,7 +89,10 @@ function generateCalendar() {
 
             // Highlight the entire week
             if (cellDate >= firstDayOfWeek && cellDate <= lastDayOfWeek && currentMonth === todayMonth && currentYear === todayYear) {
-                cell.classList.add("highlight-week");
+                row.classList.add("highlight-week"); // Apply highlight to the entire row
+
+                // Add the current-week-day class to change text color
+                cell.classList.add("current-week-day");
             }
 
             date++;
