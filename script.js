@@ -62,6 +62,12 @@ function generateCalendar() {
 
         date++;
 
+        // Apply highlight class to current week's cells
+        if (cellDate >= firstDayOfWeek && cellDate <= lastDayOfWeek && currentMonth === todayMonth && currentYear === todayYear) {
+            cell.classList.add("highlight-week");
+            cell.classList.add("highlight-text");
+        }
+
         if (i === 6) {
             row = calendarTable.querySelector("tbody").insertRow();
         }
@@ -78,27 +84,14 @@ function generateCalendar() {
 
             let cellDate = new Date(currentYear, currentMonth, date);
 
+            // Apply highlight class to current week's cells
+            if (cellDate >= firstDayOfWeek && cellDate <= lastDayOfWeek && currentMonth === todayMonth && currentYear === todayYear) {
+                cell.classList.add("highlight-week");
+                cell.classList.add("highlight-text");
+            }
+
             date++;
         }
-
-        // Check if the current row (week) falls within the current week
-        const rowCells = row.querySelectorAll("td");
-        let highlightRow = false;
-
-        // Check each day in the row to see if it's within the current week
-        for (let i = 0; i < rowCells.length; i++) {
-            let cellDate = new Date(currentYear, currentMonth, rowCells[i].textContent);
-            if (cellDate >= firstDayOfWeek && cellDate <= lastDayOfWeek && currentMonth === todayMonth && currentYear === todayYear) {
-                highlightRow = true;
-                break;
-            }
-        }
-
-        // If the row contains a day within the current week, highlight the entire row
-        if (highlightRow) {
-            row.classList.add("highlight-week");
-        }
-
         row = calendarTable.querySelector("tbody").insertRow();
     }
 }
