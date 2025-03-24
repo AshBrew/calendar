@@ -3,58 +3,43 @@
 <head>
   <title>Lavender - Mini Calendar by Ellie Gons</title>
 
- 
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Gaegu&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gaegu&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
- 
-  
   <div id="calendar-card" class="calendar-container">
     <div class="inner-container">
-
-<!-- Front Side -->
-<div id="calendar-front">
-
-  
-  
-
-<div class="header">
-  <span id="year"></span>
-  <div class="controls">
-    <button id="prevMonth">&lt;</button>
-    <span id="month"></span>
-    <button id="nextMonth">&gt;</button>
+      <!-- Front Side -->
+      <div id="calendar-front">
+        <div class="header">
+          <span id="year"></span>
+          <div class="controls">
+            <button id="prevMonth">&lt;</button>
+            <span id="month"></span>
+            <button id="nextMonth">&gt;</button>
+          </div>
+        </div>
+        <table id="calendar">
+          <thead>
+            <tr>
+              <th>M</th>
+              <th>T</th>
+              <th>W</th>
+              <th>T</th>
+              <th>F</th>
+              <th>S</th>
+              <th>S</th>
+            </tr>
+          </thead>
+          <tbody class="days"></tbody>
+        </table>
+      </div>
+    </div>
   </div>
-</div>
-
-  <table id="calendar">
-    <thead>
-      <tr>
-        <th>S</th>
-        <th>M</th>
-        <th>T</th>
-        <th>W</th>
-        <th>T</th>
-        <th>F</th>
-        <th>S</th>
-      </tr>
-    </thead>
-    <tbody class="days"></tbody>
-  </table>
-</div>
-
-
-
-</div>
-</div>
   
   <script src="script.js"></script>
-
 </body>
 </html>
