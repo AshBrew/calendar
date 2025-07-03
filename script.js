@@ -5,12 +5,6 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-function updateCalendar() {
-    generateCalendar();
-}
-
-const updateInterval = setInterval(updateCalendar, 60 * 1000); // Update every minute
-
 const monthNames = [
     "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
@@ -19,7 +13,6 @@ const monthNames = [
 let date = new Date();
 let currentMonth = date.getMonth();
 let currentYear = date.getFullYear();
-let currentDate = date.getDate();
 
 const prevMonthBtn = document.getElementById("prevMonth");
 const nextMonthBtn = document.getElementById("nextMonth");
@@ -32,78 +25,58 @@ function generateCalendar() {
     document.getElementById("month").textContent = monthNames[currentMonth];
     document.getElementById("year").textContent = currentYear;
 
-    // Clear previous rows
-    calendarTable.querySelector("tbody").innerHTML = "";
+    const tbody = calendarTable.querySelector("tbody");
+    tbody.innerHTML = "";
 
     let date = 1;
-    let row = calendarTable.querySelector("tbody").insertRow();
-
     const today = new Date();
-    const todayMonth = today.getMonth();
-    const todayYear = today.getFullYear();
+    const todayStr = today.toISOString().split("T")[0];
 
-    // Get the start and end of the current week
-    const firstDayOfWeek = new Date(today);
-    firstDayOfWeek.setDate(today.getDate() - today.getDay()); // Sunday
+    for (let week = 0; week < 6; week++) {
+        const row = tbody.insertRow();
+        let highlightRow = false;
 
-    const lastDayOfWeek = new Date(today);
-    lastDayOfWeek.setDate(today.getDate() + (6 - today.getDay())); // Saturday
-
-    for (let i = 0; i < 7; i++) {
-        if (i < firstDay) {
-            row.insertCell();
-            continue;
-        }
-
-        const cell = row.insertCell();
-        cell.textContent = date;
-
-        let cellDate = new Date(currentYear, currentMonth, date);
-
-        date++;
-
-        if (i === 6) {
-            row = calendarTable.querySelector("tbody").insertRow();
-        }
-    }
-
-    // Fill remaining days
-    while (date <= daysInMonth) {
-        for (let i = 0; i < 7; i++) {
+        for (let day = 0; day < 7; day++) {
             const cell = row.insertCell();
-            if (date > daysInMonth) {
-                break;
-            }
-            cell.textContent = date;
 
-            let cellDate = new Date(currentYear, currentMonth, date);
+            if (week === 0 && day < firstDay) {
+                cell.textContent = "";
+                continue;
+            }
+
+            if (date > daysInMonth) {
+                cell.textContent = "";
+                continue;
+            }
+
+            const cellDate = new Date(currentYear, currentMonth, date);
+            const cellDateStr = cellDate.toISOString().split("T")[0];
+
+            cell.textContent = date;
+            cell.setAttribute("data-date", cellDateStr);
+
+            // Optional: mark the exact cell for today
+            if (
+                cellDateStr === todayStr &&
+                currentMonth === today.getMonth() &&
+                currentYear === today.getFullYear()
+            ) {
+                highlightRow = true;
+                cell.classList.add("current-day");
+            }
 
             date++;
         }
 
-        // Check if the current row (week) falls within the current week
-        const rowCells = row.querySelectorAll("td");
-        let highlightRow = false;
-
-        // Check each day in the row to see if it's within the current week
-        for (let i = 0; i < rowCells.length; i++) {
-            let cellDate = new Date(currentYear, currentMonth, rowCells[i].textContent);
-            if (cellDate >= firstDayOfWeek && cellDate <= lastDayOfWeek && currentMonth === todayMonth && currentYear === todayYear) {
-                highlightRow = true;
-                break;
-            }
-        }
-
-        // If the row contains a day within the current week, highlight the entire row
         if (highlightRow) {
             row.classList.add("highlight-week");
         }
 
-        row = calendarTable.querySelector("tbody").insertRow();
+        if (date > daysInMonth) break;
     }
 }
 
-// Button controls for previous and next month
+// Controls
 prevMonthBtn.addEventListener("click", () => {
     currentMonth--;
     if (currentMonth < 0) {
@@ -122,8 +95,7 @@ nextMonthBtn.addEventListener("click", () => {
     generateCalendar();
 });
 
-generateCalendar();
-
+// Clicking the month label resets to current date
 const monthElement = document.getElementById('month');
 if (monthElement) {
     monthElement.addEventListener('click', returnToCurrentMonth);
@@ -135,3 +107,11 @@ function returnToCurrentMonth() {
     currentYear = today.getFullYear();
     generateCalendar();
 }
+
+// Auto-refresh calendar every minute
+function updateCalendar() {
+    generateCalendar();
+}
+const updateInterval = setInterval(updateCalendar, 60 * 1000);
+
+generateCalendar();
