@@ -1,5 +1,7 @@
 body {
     -webkit-tap-highlight-color: transparent;
+    margin: 0;
+    padding: 0;
 }
 
 :root {
@@ -23,40 +25,39 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 204px;
-    max-height: 194px;
-    width: 194px;
+    width: 100%;
+    max-width: 400px;
     background-color: var(--container);
-    border-radius: 40px;
+    border-radius: 6vw;
     border: solid 3px var(--containerBorder-color);
     text-align: center;
-    padding: 14px;
+    padding: 4vw;
     margin: 20px auto;
+    box-sizing: border-box;
 }
 
 .inner-container {
-    position: absolute;
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 190px;
-    max-height: 180px;
-    width: 180px;
+    width: 100%;
     background-color: var(--inner-container);
     border: solid 3px var(--innerBorder-color);
-    border-radius: 32px;
+    border-radius: 5vw;
     text-align: center;
-    padding: 10px;
+    padding: 3vw;
+    box-sizing: border-box;
 }
 
 /* Days */
 .days {
     font-family: var(--textFont);
-    font-size: 15px;
+    font-size: clamp(10px, 3vw, 15px);
     color: var(--weekday-color);
     font-weight: var(--fontWgt);
-    padding: 2px -10px;
+    padding: 0.3em;
 }
 
 td:first-child {
@@ -70,23 +71,25 @@ td:last-child {
 table {
     user-select: none;
     border-collapse: collapse;
-    width: 140px;
-    margin: 1px auto;
+    width: 100%;
+    table-layout: fixed;
 }
 
 th, td {
-    padding: 0 4px;
+    padding: 0.5em;
     line-height: 1.2;
     border: 0;
     text-align: center;
+    width: 14.28%;
+    font-size: clamp(10px, 3vw, 15px);
+    word-wrap: break-word;
 }
 
 /* Days of the week */
 th {
     font-family: var(--headerFont);
     color: var(--weekday-color);
-    font-size: 15px;
-    padding: 2px -10px;
+    font-size: clamp(10px, 3vw, 15px);
     font-weight: var(--fontWgt);
 }
 
@@ -100,7 +103,7 @@ th:last-child {
 
 /* Header */
 .header {
-    margin-bottom: -7px;
+    margin-bottom: 0.5em;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -111,8 +114,8 @@ th:last-child {
     user-select: none;
     font-family: var(--headerFont);
     color: var(--weekday-color);
-    font-size: 0.8em;
-    margin-bottom: -12px;
+    font-size: clamp(10px, 2.5vw, 14px);
+    margin-bottom: -0.5em;
     font-weight: var(--fontWgt);
 }
 
@@ -122,7 +125,7 @@ th:last-child {
     color: var(--weekday-color);
     padding: 0;
     margin: 0;
-    font-size: 1.4em;
+    font-size: clamp(18px, 5vw, 28px);
     letter-spacing: 1.5px;
     font-weight: var(--fontWgt);
 }
@@ -131,8 +134,11 @@ th:last-child {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 190px;
+    width: 100%;
+    max-width: 400px;
     margin: 10px auto;
+    padding: 0 10px;
+    box-sizing: border-box;
 }
 
 .controls button {
@@ -140,11 +146,12 @@ th:last-child {
     flex: 0 0 35px;
     text-align: center;
     font-family: var(--headerFont);
-    font-size: 1em;
+    font-size: clamp(14px, 4vw, 18px);
     font-weight: var(--fontWgt);
     opacity: 0.6;
     border: 0;
     background-color: transparent;
+    cursor: pointer;
 }
 
 .controls button:hover {
@@ -163,8 +170,8 @@ th:last-child {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) skew(5deg, 3deg);
-    width: 19px;
-    height: 19px;
+    width: 1.3em;
+    height: 1.3em;
     background-color: var(--current-day);
     border-radius: 50%;
     z-index: -1;
@@ -179,7 +186,7 @@ th:last-child {
 }
 
 .highlight-week td {
-    color: #75942f
+    color: #75942f;
     border-radius: 10px;
 }
 
@@ -195,4 +202,22 @@ th:last-child {
     color: #75942f;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
+}
+
+/* Responsive tweaks */
+@media (max-width: 400px) {
+    .calendar-container {
+        border-radius: 5vw;
+        padding: 3vw;
+    }
+
+    .inner-container {
+        border-radius: 4vw;
+        padding: 2.5vw;
+    }
+
+    .controls button {
+        flex: 1;
+        text-align: center;
+    }
 }
